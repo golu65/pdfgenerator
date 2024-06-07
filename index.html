@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parking Violation Citation</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+   
+    <div class="citation-container" id="citation">
+        <h1>Private Parking Violation</h1>
+        <h2>Citation</h2>
+        <hr/>
+        <div class="citation-details">
+            <p><strong>CITATION #:</strong> 00610</p>
+            <p><strong>VIOLATION:</strong> Unauthorized parking on private property</p>
+            <p><strong>COMMENTS:</strong> Golu Dubey</p>
+            <p><strong>ISSUE DATE:</strong> 02/09/2024 01:10 PM</p>
+        </div>
+        <div class="fee-section">
+            <div class="fee-text">
+                <p><strong>CLEAN & RELEASE FEE:</strong> $500.00</p>
+                <p><a href="https://square.link/u/OJkZjq08">https://square.link/u/OJkZjq08</a></p>
+            </div>
+            <img src="/img/11.png" alt="QR Code" class="qr-code">
+        </div>
+        <div class="violation-info">
+            <p><strong>VEHICLE TYPE:</strong> Bike</p>
+            <p><strong>NAME OF OPERATOR:</strong> Lime</p>
+            <p><strong>DEVICE ID NUMBER:</strong> 86457</p>
+        </div>
+        <div class="images-section">
+            <div class="image">
+                <p><strong>DEVICE ID IMAGE</strong></p>
+                <img src="img/14.jpg" alt="Device ID Image">
+            </div>
+            <div class="image">
+                <p><strong>VIOLATION IMAGE</strong></p>
+                <img src="img/13.jpg" alt="Violation Image">
+            </div>
+            <div class="image">
+                <p><strong>VIOLATION LOCATION</strong></p>
+                <img src="img/12.png" alt="Violation Location">
+            </div>
+        </div>
+    </div>
+   
+    <div class="button-container">
+        <button onclick="downloadPDF()">Download PDF</button>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script>
+        function downloadPDF() {
+            const { jsPDF } = window.jspdf;
+            const citation = document.getElementById('citation');
+            html2canvas(citation).then(canvas => {
+                const imgData = canvas.toDataURL('image/png');
+                const pdf = new jsPDF('p', 'mm', 'a4');
+                const imgProps = pdf.getImageProperties(imgData);
+                const pdfWidth = pdf.internal.pageSize.getWidth();
+                const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+                pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+                pdf.save('citation.pdf');
+            });
+        }
+    </script>
+</body>
+</html>
